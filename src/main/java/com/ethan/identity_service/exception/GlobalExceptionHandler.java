@@ -1,6 +1,6 @@
 package com.ethan.identity_service.exception;
 
-import com.ethan.identity_service.dto.request.ApiRespnose;
+import com.ethan.identity_service.dto.request.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,24 +28,24 @@ public class GlobalExceptionHandler {
      * New version (normalized)
      * */
     @ExceptionHandler(value=RuntimeException.class)
-    ResponseEntity<ApiRespnose> handlingRuntimeException(RuntimeException e) {
-        ApiRespnose apiRespnose = new ApiRespnose();
-        apiRespnose.setCode(1001);
-        apiRespnose.setMessage(e.getMessage());
-        return ResponseEntity.badRequest().body(apiRespnose);
+    ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException e) {
+        ApiResponse ApiResponse = new ApiResponse();
+        ApiResponse.setCode(1001);
+        ApiResponse.setMessage(e.getMessage());
+        return ResponseEntity.badRequest().body(ApiResponse);
     }
 
     @ExceptionHandler(value=AppException.class)
-    ResponseEntity<ApiRespnose> handlingAppException(AppException e) {
+    ResponseEntity<ApiResponse> handlingAppException(AppException e) {
         ErrorCode errorCode = e.getErrorCode();
-        ApiRespnose apiRespnose = new ApiRespnose();
-        apiRespnose.setCode(errorCode.getCode());
-        apiRespnose.setMessage(errorCode.getMessage());
-        return ResponseEntity.badRequest().body(apiRespnose);
+        ApiResponse ApiResponse = new ApiResponse();
+        ApiResponse.setCode(errorCode.getCode());
+        ApiResponse.setMessage(errorCode.getMessage());
+        return ResponseEntity.badRequest().body(ApiResponse);
     }
 
     @ExceptionHandler(value= MethodArgumentNotValidException.class)
-    ResponseEntity<ApiRespnose> handlingValidation(MethodArgumentNotValidException e) {
+    ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException e) {
         System.out.println("MethodArgumentNotValidException");
         String enumKey = Objects.requireNonNull(e.getFieldError()).getDefaultMessage();
 
@@ -55,19 +55,19 @@ public class GlobalExceptionHandler {
         } catch (IllegalArgumentException ex) {
             errorCode = ErrorCode.INVALID_KEY;
         }
-        ApiRespnose apiRespnose = new ApiRespnose();
-        apiRespnose.setCode(errorCode.getCode());
-        apiRespnose.setMessage(errorCode.getMessage());
-        return ResponseEntity.badRequest().body(apiRespnose);
+        ApiResponse ApiResponse = new ApiResponse();
+        ApiResponse.setCode(errorCode.getCode());
+        ApiResponse.setMessage(errorCode.getMessage());
+        return ResponseEntity.badRequest().body(ApiResponse);
     }
 
     // fallback exception
     @ExceptionHandler(value=Exception.class)
-    ResponseEntity<ApiRespnose> handlingAppException(Exception e) {
-        ApiRespnose apiRespnose = new ApiRespnose();
-        apiRespnose.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
-        apiRespnose.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
-        return ResponseEntity.badRequest().body(apiRespnose);
+    ResponseEntity<ApiResponse> handlingAppException(Exception e) {
+        ApiResponse ApiResponse = new ApiResponse();
+        ApiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
+        ApiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
+        return ResponseEntity.badRequest().body(ApiResponse);
     }
 
 
