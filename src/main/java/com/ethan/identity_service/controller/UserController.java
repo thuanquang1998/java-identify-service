@@ -2,7 +2,7 @@ package com.ethan.identity_service.controller;
 
 import com.ethan.identity_service.dto.request.ApiResponse;
 import com.ethan.identity_service.dto.request.UserCreationRequest;
-import com.ethan.identity_service.dto.request.UserResponse;
+import com.ethan.identity_service.dto.response.UserResponse;
 import com.ethan.identity_service.dto.request.UserUpdateRequest;
 import com.ethan.identity_service.entity.UserEntity;
 import com.ethan.identity_service.service.UserService;

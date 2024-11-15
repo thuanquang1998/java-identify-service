@@ -1,4 +1,4 @@
-package com.ethan.identity_service.dto.request;
+package com.ethan.identity_service.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
